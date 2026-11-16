@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <title>Elian, tienes una invitación a un obby 🎮</title>
 <meta property="og:title" content="Elian, tienes una invitación a un obby 🎮">
-<meta property="og:description" content="Llega hasta el final. Juega con el volumen alto 🔊">
+<meta property="og:description" content="Junta las 4 piezas. Juega con el volumen alto 🔊">
 <meta property="og:type" content="website">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -18,23 +18,23 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
 @keyframes llenar{to{width:100%}}
 @keyframes pulso{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.06)}}
 @keyframes brinca{0%{transform:translateY(0)}45%{transform:translateY(-80px)}100%{transform:translateY(0)}}
-@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-8px) rotate(8deg)}}
 @keyframes tomar{to{transform:translateY(-40px) scale(1.8);opacity:0}}
 @keyframes nube{from{transform:translateX(0)}to{transform:translateX(-140vw)}}
 @keyframes entra{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 @keyframes cae{to{transform:translateY(115vh) rotate(60deg)}}
 @keyframes brillo{0%,100%{box-shadow:0 0 0 6px #fff3,0 0 30px #ffcc33aa}50%{box-shadow:0 0 0 10px #fff5,0 0 60px #ffcc33}}
-@keyframes corazon{0%,100%{transform:scale(1)}15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+@keyframes corazon{0%,100%{transform:scale(1)}15%{transform:scale(1.04)}30%{transform:scale(1)}45%{transform:scale(1.025)}}
+@keyframes aparece{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 .oculto{display:none!important}
 
-/* Carga */
 #carga{position:fixed;inset:0;z-index:30;background:var(--osc);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
 .logo{display:grid;grid-template-columns:repeat(2,46px);gap:6px;transform:rotate(-12deg);margin-bottom:26px}
 .logo i{height:46px;border-radius:8px}
 .logo i:nth-child(1){background:var(--rosa)}.logo i:nth-child(2){background:var(--oro)}
 .logo i:nth-child(3){background:#7c6fd6}.logo i:nth-child(4){background:var(--verde)}
-.titulo{font-size:2.2rem;font-weight:700;line-height:1.05;letter-spacing:.02em}
+.titulo{font-size:2.2rem;font-weight:700;line-height:1.05}
 .titulo span{color:var(--oro)}
 .servidor{font-size:.9rem;opacity:.65;margin-top:8px}
 .barraC{width:240px;height:12px;background:#ffffff22;border-radius:6px;overflow:hidden;margin:26px 0 8px}
@@ -47,7 +47,6 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
 .btn.gris{background:#ffffff22;box-shadow:none;font-size:1rem;font-weight:600}
 #jugar{margin-top:22px}
 
-/* Mundo */
 .nube{position:fixed;background:#fff;border-radius:6px;opacity:.85;animation:nube linear infinite}
 .nube::before{content:"";position:absolute;background:#fff;border-radius:6px;width:55%;height:120%;left:20%;bottom:40%}
 #vista{position:fixed;inset:0;overflow:hidden}
@@ -72,22 +71,35 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
 .brazo{top:40px;width:9px;height:25px;background:linear-gradient(var(--rosa) 40%,#e9b48c 40%);border-radius:2px}
 .pierna{top:65px;width:15px;height:19px;background:#7c6fd6;border-radius:2px}
 
-/* HUD */
-#chat{position:fixed;top:12px;left:12px;right:90px;max-width:330px;background:rgba(0,0,0,.38);border-radius:10px;padding:8px 10px;font-size:.92rem;line-height:1.35;z-index:5;min-height:20px}
+#chat{position:fixed;top:12px;left:12px;right:100px;max-width:330px;background:rgba(0,0,0,.38);border-radius:10px;padding:8px 10px;font-size:.92rem;line-height:1.35;z-index:5;min-height:20px}
 #chat p{animation:entra .4s ease both}
-#chat b{font-weight:700}
-#cont{position:fixed;top:12px;right:12px;background:rgba(0,0,0,.38);border-radius:10px;padding:6px 10px;font-weight:700;z-index:5}
+#hud{position:fixed;top:12px;right:12px;background:rgba(0,0,0,.38);border-radius:10px;padding:6px 8px;z-index:5;text-align:center;font-weight:700;font-size:.8rem}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:52px;margin:4px auto 0}
+.mini i{height:24px;border-radius:4px;background:#ffffff22;border:1.5px dashed #ffffff55;transition:background .4s}
+.mini i.on{background:var(--oro);border:1.5px solid #fff}
 #saltar{position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:5;font-size:1.4rem;padding:16px 44px;animation:pulso 1.3s infinite}
 
-/* Ventana */
 #ventana{position:fixed;inset:0;z-index:10;background:rgba(10,14,35,.55);display:flex;align-items:center;justify-content:center;padding:24px}
 .caja{background:#fff;color:#22283f;border-radius:18px;padding:24px 22px;text-align:center;max-width:320px;width:100%;animation:entra .4s ease both}
 .caja .ico{font-size:3.4rem;line-height:1}
-.caja .ico.late{animation:corazon .43s infinite}
 .caja h2{font-size:1.4rem;margin:8px 0 6px}
 .caja p{font-size:1.05rem;line-height:1.45;color:#4a516b;margin-bottom:16px}
 
-/* Final */
+/* Rompecabezas */
+#armar{position:fixed;inset:0;z-index:15;background:radial-gradient(circle at 50% 35%,#222a55,var(--osc) 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.rompe{position:relative;width:min(78vw,300px);aspect-ratio:1/1}
+.pz{position:absolute;width:50%;height:50%;background-image:url(ecografia.jpg);background-size:200% 200%;border:2px solid #ffffff55;border-radius:6px;transition:transform 1.1s cubic-bezier(.3,1.3,.5,1),border-color 1s}
+.pz:nth-child(1){left:0;top:0;background-position:0 0;transform:translate(-120px,-260px) rotate(-40deg)}
+.pz:nth-child(2){left:50%;top:0;background-position:100% 0;transform:translate(140px,-220px) rotate(35deg)}
+.pz:nth-child(3){left:0;top:50%;background-position:0 100%;transform:translate(-150px,240px) rotate(30deg)}
+.pz:nth-child(4){left:50%;top:50%;background-position:100% 100%;transform:translate(130px,260px) rotate(-30deg)}
+.rompe.junto .pz{transform:none;border-color:transparent}
+.rompe img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;border-radius:8px;opacity:0;transition:opacity 1.2s}
+.rompe.real img{opacity:1}
+.rompe.late{animation:corazon .43s infinite}
+.frase{font-size:1.45rem;font-weight:600;min-height:1.5em;margin-top:22px;animation:aparece .7s ease both}
+#quien{margin-top:20px}
+
 #final{position:fixed;inset:0;z-index:20;background:radial-gradient(circle at 50% 20%,#2b3570,var(--osc) 70%);overflow-y:auto;text-align:center;padding:36px 20px 60px;-webkit-overflow-scrolling:touch}
 .insignia{width:130px;height:130px;margin:0 auto;border-radius:28px;background:linear-gradient(135deg,#ffe17a,#f5a623);display:grid;place-items:center;font-size:4.2rem;transform:rotate(-6deg);animation:brillo 2s infinite}
 .obtenida{font-size:.85rem;letter-spacing:.25em;color:var(--oro);margin-top:20px;font-weight:700}
@@ -96,7 +108,6 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
 .sub{font-size:1.08rem;opacity:.9;line-height:1.45;max-width:340px;margin:6px auto 0}
 .panel{background:#ffffff12;border:2px solid #ffffff22;border-radius:16px;padding:16px;margin:18px auto 0;max-width:360px;text-align:left}
 .panel h3{font-size:.85rem;letter-spacing:.2em;color:var(--oro);margin-bottom:8px}
-.panel img{display:block;width:100%;border-radius:10px;background:#000}
 .panel p{font-size:1.02rem;line-height:1.45;opacity:.92;margin-top:8px}
 .botones{text-align:center;margin-top:10px}
 .botones .btn{margin:6px;font-size:1.05rem;padding:12px 24px;text-decoration:none;display:inline-block}
@@ -106,25 +117,20 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
 </head>
 <body>
 
-<!-- Pantalla de carga -->
 <section id="carga">
   <div class="logo"><i></i><i></i><i></i><i></i></div>
-  <p class="titulo">EL OBBY<br><span>DEL BEBÉ</span></p>
+  <p class="titulo">OBBY<br><span>SECRETO</span></p>
   <p class="servidor">Servidor: Familia 🇵🇪 · Invitación privada</p>
   <div class="barraC"><i></i></div>
   <p id="estado">Uniéndose a la experiencia…</p>
   <button class="btn oculto" id="jugar">▶ JUGAR</button>
 </section>
 
-<!-- Mundo -->
-<div id="vista">
-  <div id="mundo"></div>
-</div>
+<div id="vista"><div id="mundo"></div></div>
 <div id="chat"></div>
-<div id="cont">🎒 0/3</div>
+<div id="hud">🧩 <span id="cont">0/4</span><div class="mini" id="mini"><i></i><i></i><i></i><i></i></div></div>
 <button class="btn azul oculto" id="saltar">⬆ SALTAR</button>
 
-<!-- Ventana de objetos -->
 <div id="ventana" class="oculto">
   <div class="caja">
     <div class="ico" id="vIco"></div>
@@ -134,7 +140,15 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
   </div>
 </div>
 
-<!-- Final -->
+<section id="armar" class="oculto">
+  <div class="rompe" id="rompe">
+    <div class="pz"></div><div class="pz"></div><div class="pz"></div><div class="pz"></div>
+    <img src="ecografia.jpg" alt="">
+  </div>
+  <p class="frase" id="frase"></p>
+  <button class="btn rosa oculto" id="quien">¿De quién es? 👀</button>
+</section>
+
 <section id="final" class="oculto">
   <div class="insignia">👶</div>
   <p class="obtenida">🏅 INSIGNIA OBTENIDA</p>
@@ -144,7 +158,6 @@ body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),v
 
   <div class="panel">
     <h3>NUEVO JUGADOR EN CAMINO</h3>
-    <img src="ecografia.jpg" alt="Ecografía">
     <p id="llega"></p>
   </div>
 
@@ -184,7 +197,6 @@ const $ = id => document.getElementById(id);
 const latido = $("latido");
 let sintetico = true, ctx = null;
 
-/* Textos */
 $("nomIns").textContent = "TÍA " + C.nombre.toUpperCase();
 $("papas").textContent = `${C.novia} y yo vamos a ser papás, y tú eres de las primeras en saberlo 🤫`;
 const dias = Math.ceil((new Date(C.fechaParto + "T00:00:00") - new Date()) / 864e5);
@@ -196,7 +208,6 @@ $("nino").href = wa + encodeURIComponent("¡VOY A SER TÍA! 😭🎮 Yo digo que
 $("nina").href = wa + encodeURIComponent("¡VOY A SER TÍA! 😭🎮 Yo digo que será niña 💗");
 new Image().src = "ecografia.jpg";
 
-/* Busca el latido aunque tenga otro nombre */
 (async () => {
   const nombres = ["latido", "latidos", "Latido", "corazon"], ext = ["mp4", "mp3", "m4a", "wav", "MP4", "MP3", "M4A"];
   for (const n of nombres) for (const e of ext) {
@@ -204,7 +215,6 @@ new Image().src = "ecografia.jpg";
   }
 })();
 
-/* Latido generado si no hay archivo */
 function golpe(){
   try {
     ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
@@ -229,7 +239,6 @@ function sonarLatido(ms){
   finT = setTimeout(() => { clearInterval(pulsoT); latido.pause(); }, ms);
 }
 
-/* Nubes */
 for (let n = 0; n < 6; n++) {
   const c = document.createElement("div");
   c.className = "nube";
@@ -242,14 +251,13 @@ for (let n = 0; n < 6; n++) {
   document.body.insertBefore(c, $("vista"));
 }
 
-/* Plataformas */
 const PASO = 175;
 const plats = [
   {h: 120},
-  {h: 160, item: "🍼", tit: "¡Conseguiste un biberón!", txt: "Alguien muy chiquito lo va a necesitar…"},
-  {h: 130, item: "🧸", tit: "¡Conseguiste un osito!", txt: "…y alguien con quien jugar.", chat: ["Mary Cielo", "#ff9fc4", "ya casi 🤭"]},
-  {h: 180, item: "💓", tit: "¡Conseguiste un latido!", txt: "Sube el volumen y escucha…", late: true},
-  {h: 145, item: "🎁", meta: true}
+  {h: 160, txt: "Hay algo escondido en este mapa… sigue saltando."},
+  {h: 130, txt: "Nadie más en el servidor sabe esto todavía 🤫", chat: ["Mary Cielo", "#ff9fc4", "no le digas nada todavía 🤭"]},
+  {h: 180, txt: "Ya casi. Sube el volumen para la última 🔊", chat: [C.perro, "#c9a27a", "guau guau 🐾"]},
+  {h: 145, meta: true}
 ];
 const mundo = $("mundo");
 plats.forEach((p, i) => {
@@ -258,18 +266,17 @@ plats.forEach((p, i) => {
   d.style.left = 40 + i * PASO + "px";
   d.style.bottom = p.h + "px";
   mundo.appendChild(d);
-  if (p.item) {
+  if (i > 0) {
     const it = document.createElement("div");
     it.className = "item";
     it.id = "item" + i;
-    it.textContent = p.item;
+    it.textContent = "🧩";
     it.style.left = 40 + i * PASO + 38 + "px";
     it.style.bottom = p.h + 44 + "px";
     mundo.appendChild(it);
   }
 });
 
-/* Avatar */
 const avatar = document.createElement("div");
 avatar.className = "avatar";
 avatar.innerHTML = `<div class="av" id="av">
@@ -282,7 +289,7 @@ avatar.innerHTML = `<div class="av" id="av">
 </div>`;
 mundo.appendChild(avatar);
 
-let paso = 0, ocupado = false, objetos = 0;
+let paso = 0, ocupado = false, piezas = 0;
 function ubicar(i){
   avatar.style.left = 40 + i * PASO + 34 + "px";
   avatar.style.bottom = plats[i].h + 30 + "px";
@@ -299,9 +306,8 @@ function chat(nombre, color, txt){
   while ($("chat").children.length > 3) $("chat").firstChild.remove();
 }
 
-function ventana(ico, tit, txt, boton, alCerrar, late){
+function ventana(ico, tit, txt, boton, alCerrar){
   $("vIco").textContent = ico;
-  $("vIco").classList.toggle("late", !!late);
   $("vTit").textContent = tit;
   $("vTxt").textContent = txt;
   $("vBtn").textContent = boton;
@@ -321,30 +327,44 @@ $("saltar").onclick = () => {
 
 function aterrizar(i){
   const p = plats[i];
-  const it = $("item" + i);
-  if (it) it.classList.add("tomado");
-  if (p.chat) chat(...p.chat);
+  $("item" + i).classList.add("tomado");
+  piezas++;
+  $("cont").textContent = `${piezas}/4`;
+  $("mini").children[piezas - 1].classList.add("on");
+  if (navigator.vibrate) navigator.vibrate(60);
+  if (p.chat) setTimeout(() => chat(...p.chat), 600);
   if (p.meta) {
     $("saltar").classList.add("oculto");
-    chat("???", "#ffd166", `hola, tía 👋`);
-    setTimeout(() => ventana("🎁", "¡Llegaste a la meta!", "Hay un regalo para ti. Ábrelo…", "ABRIR 🎁", abrirRegalo), 900);
+    chat("???", "#ffd166", "👀");
+    setTimeout(() => ventana("🧩", "¡Tienes las 4 piezas!", "Ahora vamos a armarlo…", "ARMAR 🧩", armar), 900);
     return;
   }
-  objetos++;
-  $("cont").textContent = `🎒 ${objetos}/3`;
-  if (navigator.vibrate) navigator.vibrate(60);
-  if (p.late) {
-    sonarLatido(7000);
-    ventana(p.item, p.tit, p.txt, "Seguir", () => { ocupado = false; }, true);
-    $("vBtn").classList.add("oculto");
-    setTimeout(() => $("vBtn").classList.remove("oculto"), 4500);
-  } else {
-    ventana(p.item, p.tit, p.txt, "Seguir", () => { ocupado = false; });
-  }
+  ventana("🧩", `¡Pieza ${piezas} de 4!`, p.txt, "Seguir", () => { ocupado = false; });
+}
+
+function armar(){
+  $("armar").classList.remove("oculto");
+  $("chat").classList.add("oculto");
+  $("hud").classList.add("oculto");
+  const r = $("rompe");
+  setTimeout(() => r.classList.add("junto"), 300);
+  setTimeout(() => r.classList.add("real"), 1700);
+  setTimeout(() => {
+    r.classList.add("late");
+    sonarLatido(14000);
+    decir("Esto que escuchas… es un corazón.");
+  }, 2700);
+  setTimeout(() => decir("Un corazón muy chiquito."), 6200);
+  setTimeout(() => $("quien").classList.remove("oculto"), 8200);
+}
+function decir(t){
+  const f = $("frase");
+  f.textContent = t;
+  f.style.animation = "none"; f.getBoundingClientRect(); f.style.animation = "";
 }
 
 function confeti(){
-  const cosas = ["🟪", "🟨", "🟩", "🟦", "💗", "💙", "⭐", "🍼"];
+  const cosas = ["🟪", "🟨", "🟩", "🟦", "💗", "💙", "⭐", "🧩"];
   for (let n = 0; n < 60; n++) {
     const s = document.createElement("span");
     s.className = "confeti";
@@ -358,18 +378,15 @@ function confeti(){
   }
 }
 
-function abrirRegalo(){
-  sonarLatido(5000);
+$("quien").onclick = () => {
   if (navigator.vibrate) navigator.vibrate([100, 60, 100, 60, 250]);
+  $("armar").classList.add("oculto");
   $("final").classList.remove("oculto");
-  $("chat").classList.add("oculto");
-  $("cont").classList.add("oculto");
   confeti();
-}
+};
 
 $("otraVez").onclick = () => sonarLatido(7000);
 
-/* Carga → jugar */
 setTimeout(() => $("estado").textContent = "Cargando mapa…", 1100);
 setTimeout(() => { $("estado").textContent = "¡Listo!"; $("jugar").classList.remove("oculto"); }, 2700);
 $("jugar").onclick = () => {
@@ -377,7 +394,7 @@ $("jugar").onclick = () => {
   else { try { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); ctx.resume(); } catch (e) {} }
   $("carga").classList.add("oculto");
   $("saltar").classList.remove("oculto");
-  setTimeout(() => chat(C.yo, "#7fd1ff", `${C.nombre}, llega hasta el final del obby 👀`), 500);
+  setTimeout(() => chat(C.yo, "#7fd1ff", `${C.nombre}, junta las 4 piezas 👀`), 500);
 };
 </script>
 </body>
