@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google" content="notranslate">
+<meta name="robots" content="noindex">
+<title>Elian, tienes una invitación a un obby 🎮</title>
+<meta property="og:title" content="Elian, tienes una invitación a un obby 🎮">
+<meta property="og:description" content="Llega hasta el final. Juega con el volumen alto 🔊">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cielo1:#6fc3ff;--cielo2:#d2f0ff;--verde:#5cc06a;--verde2:#3e9a4c;--rosa:#f48fb1;--oro:#ffcc33;--osc:#151a33}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Fredoka',sans-serif;background:linear-gradient(var(--cielo1),var(--cielo2));overflow:hidden;user-select:none;-webkit-user-select:none;color:#fff}
+@keyframes llenar{to{width:100%}}
+@keyframes pulso{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.06)}}
+@keyframes brinca{0%{transform:translateY(0)}45%{transform:translateY(-80px)}100%{transform:translateY(0)}}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes tomar{to{transform:translateY(-40px) scale(1.8);opacity:0}}
+@keyframes nube{from{transform:translateX(0)}to{transform:translateX(-140vw)}}
+@keyframes entra{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+@keyframes cae{to{transform:translateY(115vh) rotate(60deg)}}
+@keyframes brillo{0%,100%{box-shadow:0 0 0 6px #fff3,0 0 30px #ffcc33aa}50%{box-shadow:0 0 0 10px #fff5,0 0 60px #ffcc33}}
+@keyframes corazon{0%,100%{transform:scale(1)}15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.18)}}
+
+.oculto{display:none!important}
+
+/* Carga */
+#carga{position:fixed;inset:0;z-index:30;background:var(--osc);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.logo{display:grid;grid-template-columns:repeat(2,46px);gap:6px;transform:rotate(-12deg);margin-bottom:26px}
+.logo i{height:46px;border-radius:8px}
+.logo i:nth-child(1){background:var(--rosa)}.logo i:nth-child(2){background:var(--oro)}
+.logo i:nth-child(3){background:#7c6fd6}.logo i:nth-child(4){background:var(--verde)}
+.titulo{font-size:2.2rem;font-weight:700;line-height:1.05;letter-spacing:.02em}
+.titulo span{color:var(--oro)}
+.servidor{font-size:.9rem;opacity:.65;margin-top:8px}
+.barraC{width:240px;height:12px;background:#ffffff22;border-radius:6px;overflow:hidden;margin:26px 0 8px}
+.barraC i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--verde),#8ef09a);animation:llenar 2.6s ease forwards}
+#estado{font-size:.95rem;opacity:.8;min-height:1.4em}
+.btn{font:inherit;font-weight:700;font-size:1.25rem;color:#fff;background:#2fb551;border:0;border-radius:12px;padding:14px 34px;cursor:pointer;box-shadow:0 6px 0 #1f7a37;letter-spacing:.04em}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #1f7a37}
+.btn.azul{background:#3b82f6;box-shadow:0 6px 0 #2456a8}
+.btn.rosa{background:#ec6a9c;box-shadow:0 6px 0 #b04a74}
+.btn.gris{background:#ffffff22;box-shadow:none;font-size:1rem;font-weight:600}
+#jugar{margin-top:22px}
+
+/* Mundo */
+.nube{position:fixed;background:#fff;border-radius:6px;opacity:.85;animation:nube linear infinite}
+.nube::before{content:"";position:absolute;background:#fff;border-radius:6px;width:55%;height:120%;left:20%;bottom:40%}
+#vista{position:fixed;inset:0;overflow:hidden}
+#mundo{position:absolute;left:0;bottom:0;height:100%;width:1400px;transition:transform .75s ease}
+.plat{position:absolute;width:112px;height:30px;border-radius:5px;background-color:var(--verde);background-image:radial-gradient(circle,#7bd987 3px,transparent 4px);background-size:14px 14px;background-position:3px 2px;box-shadow:inset 0 -9px 0 var(--verde2),0 8px 0 rgba(0,0,0,.12)}
+.plat.meta{background-color:var(--oro);background-image:radial-gradient(circle,#ffe17a 3px,transparent 4px);box-shadow:inset 0 -9px 0 #d9a514,0 8px 0 rgba(0,0,0,.12)}
+.item{position:absolute;font-size:2.1rem;animation:flota 1.6s ease-in-out infinite;filter:drop-shadow(0 4px 4px rgba(0,0,0,.2))}
+.item.tomado{animation:tomar .5s ease forwards}
+
+.avatar{position:absolute;width:44px;height:84px;transition:left .75s linear,bottom .75s ease;z-index:2}
+.av{position:relative;width:100%;height:100%}
+.av.brinca{animation:brinca .75s ease}
+.av b{position:absolute;display:block}
+.tag{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.75rem;background:rgba(0,0,0,.45);padding:1px 7px;border-radius:5px;white-space:nowrap}
+.pelo{left:5px;top:8px;width:34px;height:13px;background:#2b1d16;border-radius:5px 5px 1px 1px}
+.peloL{left:3px;top:14px;width:8px;height:30px;background:#2b1d16;border-radius:2px}
+.peloR{left:33px;top:14px;width:8px;height:30px;background:#2b1d16;border-radius:2px}
+.cabeza{left:8px;top:14px;width:28px;height:26px;background:#e9b48c;border-radius:4px}
+.ojo{top:24px;width:4px;height:5px;background:#2b1d16;border-radius:1px}
+.boca{left:17px;top:32px;width:10px;height:4px;border:2px solid #9c4a3a;border-top:0;border-radius:0 0 6px 6px}
+.torso{left:6px;top:40px;width:32px;height:25px;background:var(--rosa);border-radius:3px}
+.brazo{top:40px;width:9px;height:25px;background:linear-gradient(var(--rosa) 40%,#e9b48c 40%);border-radius:2px}
+.pierna{top:65px;width:15px;height:19px;background:#7c6fd6;border-radius:2px}
+
+/* HUD */
+#chat{position:fixed;top:12px;left:12px;right:90px;max-width:330px;background:rgba(0,0,0,.38);border-radius:10px;padding:8px 10px;font-size:.92rem;line-height:1.35;z-index:5;min-height:20px}
+#chat p{animation:entra .4s ease both}
+#chat b{font-weight:700}
+#cont{position:fixed;top:12px;right:12px;background:rgba(0,0,0,.38);border-radius:10px;padding:6px 10px;font-weight:700;z-index:5}
+#saltar{position:fixed;left:50%;bottom:34px;transform:translateX(-50%);z-index:5;font-size:1.4rem;padding:16px 44px;animation:pulso 1.3s infinite}
+
+/* Ventana */
+#ventana{position:fixed;inset:0;z-index:10;background:rgba(10,14,35,.55);display:flex;align-items:center;justify-content:center;padding:24px}
+.caja{background:#fff;color:#22283f;border-radius:18px;padding:24px 22px;text-align:center;max-width:320px;width:100%;animation:entra .4s ease both}
+.caja .ico{font-size:3.4rem;line-height:1}
+.caja .ico.late{animation:corazon .43s infinite}
+.caja h2{font-size:1.4rem;margin:8px 0 6px}
+.caja p{font-size:1.05rem;line-height:1.45;color:#4a516b;margin-bottom:16px}
+
+/* Final */
+#final{position:fixed;inset:0;z-index:20;background:radial-gradient(circle at 50% 20%,#2b3570,var(--osc) 70%);overflow-y:auto;text-align:center;padding:36px 20px 60px;-webkit-overflow-scrolling:touch}
+.insignia{width:130px;height:130px;margin:0 auto;border-radius:28px;background:linear-gradient(135deg,#ffe17a,#f5a623);display:grid;place-items:center;font-size:4.2rem;transform:rotate(-6deg);animation:brillo 2s infinite}
+.obtenida{font-size:.85rem;letter-spacing:.25em;color:var(--oro);margin-top:20px;font-weight:700}
+.nomIns{font-size:2.4rem;font-weight:700;line-height:1.05;margin-top:4px}
+.grande{font-size:2.2rem;font-weight:700;color:var(--rosa);margin-top:18px}
+.sub{font-size:1.08rem;opacity:.9;line-height:1.45;max-width:340px;margin:6px auto 0}
+.panel{background:#ffffff12;border:2px solid #ffffff22;border-radius:16px;padding:16px;margin:18px auto 0;max-width:360px;text-align:left}
+.panel h3{font-size:.85rem;letter-spacing:.2em;color:var(--oro);margin-bottom:8px}
+.panel img{display:block;width:100%;border-radius:10px;background:#000}
+.panel p{font-size:1.02rem;line-height:1.45;opacity:.92;margin-top:8px}
+.botones{text-align:center;margin-top:10px}
+.botones .btn{margin:6px;font-size:1.05rem;padding:12px 24px;text-decoration:none;display:inline-block}
+.firma{margin-top:26px;font-size:1.05rem;opacity:.85}
+.confeti{position:fixed;top:-30px;z-index:40;pointer-events:none;animation:cae linear forwards}
+</style>
+</head>
+<body>
+
+<!-- Pantalla de carga -->
+<section id="carga">
+  <div class="logo"><i></i><i></i><i></i><i></i></div>
+  <p class="titulo">EL OBBY<br><span>DEL BEBÉ</span></p>
+  <p class="servidor">Servidor: Familia 🇵🇪 · Invitación privada</p>
+  <div class="barraC"><i></i></div>
+  <p id="estado">Uniéndose a la experiencia…</p>
+  <button class="btn oculto" id="jugar">▶ JUGAR</button>
+</section>
+
+<!-- Mundo -->
+<div id="vista">
+  <div id="mundo"></div>
+</div>
+<div id="chat"></div>
+<div id="cont">🎒 0/3</div>
+<button class="btn azul oculto" id="saltar">⬆ SALTAR</button>
+
+<!-- Ventana de objetos -->
+<div id="ventana" class="oculto">
+  <div class="caja">
+    <div class="ico" id="vIco"></div>
+    <h2 id="vTit"></h2>
+    <p id="vTxt"></p>
+    <button class="btn" id="vBtn">Seguir</button>
+  </div>
+</div>
+
+<!-- Final -->
+<section id="final" class="oculto">
+  <div class="insignia">👶</div>
+  <p class="obtenida">🏅 INSIGNIA OBTENIDA</p>
+  <p class="nomIns" id="nomIns"></p>
+  <p class="grande">¡Vas a ser tía!</p>
+  <p class="sub" id="papas"></p>
+
+  <div class="panel">
+    <h3>NUEVO JUGADOR EN CAMINO</h3>
+    <img src="ecografia.jpg" alt="Ecografía">
+    <p id="llega"></p>
+  </div>
+
+  <div class="panel">
+    <h3>🐾 MASCOTA DEL SERVIDOR</h3>
+    <p id="mascota"></p>
+  </div>
+
+  <div class="panel">
+    <h3>MISIÓN FINAL: ¿NIÑO O NIÑA?</h3>
+    <p>Todavía no lo sabemos. ¿Tú qué crees?</p>
+    <div class="botones">
+      <a class="btn azul" id="nino" target="_blank" rel="noopener">Niño 💙</a>
+      <a class="btn rosa" id="nina" target="_blank" rel="noopener">Niña 💗</a>
+    </div>
+  </div>
+
+  <p style="margin-top:20px"><button class="btn gris" id="otraVez">💓 Escuchar su corazón otra vez</button></p>
+  <p class="firma" id="firma"></p>
+  <p style="opacity:.6;margin-top:6px">PD: ¡Es secreto! 🤫</p>
+</section>
+
+<audio id="latido" preload="auto"></audio>
+
+<script>
+const C = {
+  nombre: "Elian",
+  yo: "Bryan",
+  novia: "Mary Cielo",
+  perro: "Drako",
+  mesParto: "mayo de 2027",
+  fechaParto: "2027-05-23",
+  whatsapp: "51983095706"
+};
+
+const $ = id => document.getElementById(id);
+const latido = $("latido");
+let sintetico = true, ctx = null;
+
+/* Textos */
+$("nomIns").textContent = "TÍA " + C.nombre.toUpperCase();
+$("papas").textContent = `${C.novia} y yo vamos a ser papás, y tú eres de las primeras en saberlo 🤫`;
+const dias = Math.ceil((new Date(C.fechaParto + "T00:00:00") - new Date()) / 864e5);
+$("llega").textContent = `Se une al servidor en ${C.mesParto}${dias > 0 ? ` · faltan ${dias} días` : ""}. Ve preparando todo lo que le vas a enseñar 🎮`;
+$("mascota").textContent = `${C.perro} ya te espera. Ahora serán dos sobrinos para engreír.`;
+$("firma").textContent = `Con todo nuestro amor, ${C.yo}, ${C.novia} y ${C.perro} 💗💙`;
+const wa = "https://wa.me/" + C.whatsapp + "?text=";
+$("nino").href = wa + encodeURIComponent("¡VOY A SER TÍA! 😭🎮 Yo digo que será niño 💙");
+$("nina").href = wa + encodeURIComponent("¡VOY A SER TÍA! 😭🎮 Yo digo que será niña 💗");
+new Image().src = "ecografia.jpg";
+
+/* Busca el latido aunque tenga otro nombre */
+(async () => {
+  const nombres = ["latido", "latidos", "Latido", "corazon"], ext = ["mp4", "mp3", "m4a", "wav", "MP4", "MP3", "M4A"];
+  for (const n of nombres) for (const e of ext) {
+    try { const r = await fetch(`${n}.${e}`, {method: "HEAD", cache: "no-store"}); if (r.ok) { latido.src = `${n}.${e}`; sintetico = false; return; } } catch (x) {}
+  }
+})();
+
+/* Latido generado si no hay archivo */
+function golpe(){
+  try {
+    ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+    const t = ctx.currentTime;
+    [0, .15].forEach((d, k) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.setValueAtTime(75, t + d);
+      o.frequency.exponentialRampToValueAtTime(40, t + d + .12);
+      g.gain.setValueAtTime(.0001, t + d);
+      g.gain.exponentialRampToValueAtTime(k ? .5 : .9, t + d + .01);
+      g.gain.exponentialRampToValueAtTime(.0001, t + d + .16);
+      o.connect(g).connect(ctx.destination);
+      o.start(t + d); o.stop(t + d + .2);
+    });
+  } catch (e) {}
+}
+let pulsoT = null, finT = null;
+function sonarLatido(ms){
+  clearInterval(pulsoT); clearTimeout(finT);
+  if (!sintetico) { latido.currentTime = 0; latido.play().catch(() => {}); }
+  pulsoT = setInterval(() => { if (sintetico) golpe(); if (navigator.vibrate) navigator.vibrate(35); }, 430);
+  finT = setTimeout(() => { clearInterval(pulsoT); latido.pause(); }, ms);
+}
+
+/* Nubes */
+for (let n = 0; n < 6; n++) {
+  const c = document.createElement("div");
+  c.className = "nube";
+  const w = 70 + Math.random() * 70;
+  c.style.width = w + "px"; c.style.height = w * .32 + "px";
+  c.style.top = 6 + Math.random() * 40 + "%";
+  c.style.left = 100 + Math.random() * 40 + "vw";
+  c.style.animationDuration = 26 + Math.random() * 20 + "s";
+  c.style.animationDelay = -Math.random() * 30 + "s";
+  document.body.insertBefore(c, $("vista"));
+}
+
+/* Plataformas */
+const PASO = 175;
+const plats = [
+  {h: 120},
+  {h: 160, item: "🍼", tit: "¡Conseguiste un biberón!", txt: "Alguien muy chiquito lo va a necesitar…"},
+  {h: 130, item: "🧸", tit: "¡Conseguiste un osito!", txt: "…y alguien con quien jugar.", chat: ["Mary Cielo", "#ff9fc4", "ya casi 🤭"]},
+  {h: 180, item: "💓", tit: "¡Conseguiste un latido!", txt: "Sube el volumen y escucha…", late: true},
+  {h: 145, item: "🎁", meta: true}
+];
+const mundo = $("mundo");
+plats.forEach((p, i) => {
+  const d = document.createElement("div");
+  d.className = "plat" + (p.meta ? " meta" : "");
+  d.style.left = 40 + i * PASO + "px";
+  d.style.bottom = p.h + "px";
+  mundo.appendChild(d);
+  if (p.item) {
+    const it = document.createElement("div");
+    it.className = "item";
+    it.id = "item" + i;
+    it.textContent = p.item;
+    it.style.left = 40 + i * PASO + 38 + "px";
+    it.style.bottom = p.h + 44 + "px";
+    mundo.appendChild(it);
+  }
+});
+
+/* Avatar */
+const avatar = document.createElement("div");
+avatar.className = "avatar";
+avatar.innerHTML = `<div class="av" id="av">
+  <span class="tag">${C.nombre}</span>
+  <b class="peloL"></b><b class="peloR"></b>
+  <b class="brazo" style="left:-4px"></b><b class="brazo" style="left:39px"></b>
+  <b class="pierna" style="left:6px"></b><b class="pierna" style="left:23px"></b>
+  <b class="torso"></b><b class="cabeza"></b><b class="pelo"></b>
+  <b class="ojo" style="left:15px"></b><b class="ojo" style="left:25px"></b><b class="boca"></b>
+</div>`;
+mundo.appendChild(avatar);
+
+let paso = 0, ocupado = false, objetos = 0;
+function ubicar(i){
+  avatar.style.left = 40 + i * PASO + 34 + "px";
+  avatar.style.bottom = plats[i].h + 30 + "px";
+  const x = 40 + i * PASO - window.innerWidth * .28;
+  mundo.style.transform = `translateX(${-Math.max(0, x)}px)`;
+}
+ubicar(0);
+
+function chat(nombre, color, txt){
+  const p = document.createElement("p");
+  p.innerHTML = `<b style="color:${color}">[${nombre}]:</b> `;
+  p.appendChild(document.createTextNode(txt));
+  $("chat").appendChild(p);
+  while ($("chat").children.length > 3) $("chat").firstChild.remove();
+}
+
+function ventana(ico, tit, txt, boton, alCerrar, late){
+  $("vIco").textContent = ico;
+  $("vIco").classList.toggle("late", !!late);
+  $("vTit").textContent = tit;
+  $("vTxt").textContent = txt;
+  $("vBtn").textContent = boton;
+  $("ventana").classList.remove("oculto");
+  $("vBtn").onclick = () => { $("ventana").classList.add("oculto"); alCerrar && alCerrar(); };
+}
+
+$("saltar").onclick = () => {
+  if (ocupado || paso >= plats.length - 1) return;
+  ocupado = true;
+  paso++;
+  const av = $("av");
+  av.classList.remove("brinca"); av.getBoundingClientRect(); av.classList.add("brinca");
+  ubicar(paso);
+  setTimeout(() => aterrizar(paso), 780);
+};
+
+function aterrizar(i){
+  const p = plats[i];
+  const it = $("item" + i);
+  if (it) it.classList.add("tomado");
+  if (p.chat) chat(...p.chat);
+  if (p.meta) {
+    $("saltar").classList.add("oculto");
+    chat("???", "#ffd166", `hola, tía 👋`);
+    setTimeout(() => ventana("🎁", "¡Llegaste a la meta!", "Hay un regalo para ti. Ábrelo…", "ABRIR 🎁", abrirRegalo), 900);
+    return;
+  }
+  objetos++;
+  $("cont").textContent = `🎒 ${objetos}/3`;
+  if (navigator.vibrate) navigator.vibrate(60);
+  if (p.late) {
+    sonarLatido(7000);
+    ventana(p.item, p.tit, p.txt, "Seguir", () => { ocupado = false; }, true);
+    $("vBtn").classList.add("oculto");
+    setTimeout(() => $("vBtn").classList.remove("oculto"), 4500);
+  } else {
+    ventana(p.item, p.tit, p.txt, "Seguir", () => { ocupado = false; });
+  }
+}
+
+function confeti(){
+  const cosas = ["🟪", "🟨", "🟩", "🟦", "💗", "💙", "⭐", "🍼"];
+  for (let n = 0; n < 60; n++) {
+    const s = document.createElement("span");
+    s.className = "confeti";
+    s.textContent = cosas[n % cosas.length];
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.fontSize = 14 + Math.random() * 18 + "px";
+    s.style.animationDuration = 3 + Math.random() * 3 + "s";
+    s.style.animationDelay = Math.random() * 2.5 + "s";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 9000);
+  }
+}
+
+function abrirRegalo(){
+  sonarLatido(5000);
+  if (navigator.vibrate) navigator.vibrate([100, 60, 100, 60, 250]);
+  $("final").classList.remove("oculto");
+  $("chat").classList.add("oculto");
+  $("cont").classList.add("oculto");
+  confeti();
+}
+
+$("otraVez").onclick = () => sonarLatido(7000);
+
+/* Carga → jugar */
+setTimeout(() => $("estado").textContent = "Cargando mapa…", 1100);
+setTimeout(() => { $("estado").textContent = "¡Listo!"; $("jugar").classList.remove("oculto"); }, 2700);
+$("jugar").onclick = () => {
+  if (!sintetico) { latido.muted = true; latido.play().then(() => { latido.pause(); latido.currentTime = 0; latido.muted = false; }).catch(() => { latido.muted = false; }); }
+  else { try { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); ctx.resume(); } catch (e) {} }
+  $("carga").classList.add("oculto");
+  $("saltar").classList.remove("oculto");
+  setTimeout(() => chat(C.yo, "#7fd1ff", `${C.nombre}, llega hasta el final del obby 👀`), 500);
+};
+</script>
+</body>
+</html>
